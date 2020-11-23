@@ -77,7 +77,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     child: FlatButton(
                       splashColor: Colors.transparent,
                       onPressed: () {
-                        print('Skip');
+                        Routes.sailor.navigate('/Sign_up',
+                            navigationType: NavigationType.pushReplace,
+                            removeUntilPredicate: (route) => false,
+                            transitions: [SailorTransition.slide_from_right]);
                       },
                       child: Text(
                         'Skip',
@@ -136,25 +139,33 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         ),
         bottomSheet: _currentPage == _numPages - 1
             ? Container(
-                height: 70.0,
+                height: 60.0,
                 width: double.infinity,
                 child: Center(
                   child: Padding(
-                    padding: const EdgeInsets.only(bottom: 20),
-                    child: GestureDetector(
-                      onTap: () {
-                        Routes.sailor.navigate('/Sign_in',
-                            navigationType: NavigationType.pushAndRemoveUntil,
-                            removeUntilPredicate: (route) => false,
-                            transitions: [SailorTransition.slide_from_bottom]);
-                      },
-                      child: Text(
-                        'Get started',
-                        style: TextStyle(
-                            color: Color(0xFF5036D5),
-                            fontSize: 30,
-                            fontWeight: FontWeight.bold),
-                      ),
+                    padding: const EdgeInsets.only(bottom: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: <Widget>[
+                        GestureDetector(
+                          onTap: () {
+                            Routes.sailor.navigate('/Sign_up',
+                                navigationType:
+                                    NavigationType.pushAndRemoveUntil,
+                                removeUntilPredicate: (route) => false,
+                                transitions: [
+                                  SailorTransition.slide_from_bottom
+                                ]);
+                          },
+                          child: Text(
+                            'Get Started',
+                            style: TextStyle(
+                                color: Color(0xFF5036D5),
+                                fontSize: 30,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),

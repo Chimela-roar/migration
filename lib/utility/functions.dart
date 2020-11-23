@@ -26,3 +26,13 @@ String passwordValidator(String value) {
   }
   return null;
 }
+
+String phoneNumberValidator(String value) {
+  final val = value.trim();
+  if (val.isEmpty) {
+    return 'Phone number is required';
+  } else if (val.length < 11) {
+    return 'Incorrect Phone Number';
+  }
+  return null;
+}

@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:migration/presentation/Sign_in.dart';
+import 'package:migration/presentation/Sign_up.dart';
 import 'package:migration/presentation/onboarding.dart';
 import 'package:sailor/sailor.dart';
 
@@ -14,9 +13,9 @@ class Routes {
             return OnboardingScreen();
           }),
       SailorRoute(
-          name: '/Sign_in',
+          name: '/Sign_up',
           builder: (context, args, params) {
-            return SignIn();
+            return Signup();
           }),
     ]);
   }
