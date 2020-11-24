@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:migration/utility/functions.dart';
+import 'package:migration/utility/routes.dart';
 import 'package:migration/utility/size_config.dart';
+import 'package:sailor/sailor.dart';
 
 class Signup extends StatefulWidget {
   Signup({Key key}) : super(key: key);
@@ -19,7 +21,7 @@ class _SignupState extends State<Signup> {
           padding: EdgeInsets.all(50),
           child: Column(
             children: <Widget>[
-              Image.asset("images/migration.png"),
+              Hero(tag: 'logo', child: Image.asset("images/migration.png")),
               SizedBox(height: SizeConfig.heightMultiplier * 4),
               InputField(
                 hinttitle: 'Email',
@@ -39,7 +41,12 @@ class _SignupState extends State<Signup> {
                 height: SizeConfig.heightMultiplier * 7,
               ),
               FlatButton(
-                onPressed: () {},
+                onPressed: () {
+                  Routes.sailor.navigate('/Log_in',
+                      navigationType: NavigationType.push,
+                      removeUntilPredicate: (route) => false,
+                      transitions: [SailorTransition.slide_from_right]);
+                },
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(50),
                 ),
@@ -52,6 +59,27 @@ class _SignupState extends State<Signup> {
                   textAlign: TextAlign.center,
                 ),
               ),
+              SizedBox(height: SizeConfig.heightMultiplier * 2),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Already have an acoount?',
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Routes.sailor.navigate('/Log_in',
+                          navigationType: NavigationType.pushReplace,
+                          removeUntilPredicate: (route) => false,
+                          transitions: [SailorTransition.slide_from_right]);
+                    },
+                    child: Text(
+                      'Log In',
+                      style: TextStyle(color: Colors.purple),
+                    ),
+                  ),
+                ],
+              )
             ],
           ),
         ));
