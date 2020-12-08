@@ -99,8 +99,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         });
                       },
                       children: <Widget>[
-                        screen1(),
-                        screen2(),
+                        Screen1(),
+                        Screen2(),
                       ],
                     ),
                   ),

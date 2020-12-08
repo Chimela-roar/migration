@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "522519631526",
+    "firebase_url": "https://migration-8e8fd.firebaseio.com",
+    "project_id": "migration-8e8fd",
+    "storage_bucket": "migration-8e8fd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:522519631526:android:6be9139bfc0bd18ef04667",
+        "android_client_info": {
+          "package_name": "com.chimela.migration"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "522519631526-e03t97ft0ri1rc8unq2bjucdlpq3l6ts.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBjPHo7N9ULtxHXOEvNmZUiXWsr7MWBZXY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "522519631526-e03t97ft0ri1rc8unq2bjucdlpq3l6ts.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

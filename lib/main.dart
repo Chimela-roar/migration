@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:migration/presentation/Log_in.dart';
 import 'package:migration/presentation/onboarding.dart';
 import 'package:migration/utility/routes.dart';
 import 'package:migration/utility/size_config.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   Routes.createRoutes();
@@ -26,7 +29,8 @@ class MyApp extends StatelessWidget {
             primarySwatch: Colors.blue,
             visualDensity: VisualDensity.adaptivePlatformDensity,
           ),
-          home: OnboardingScreen(),
+          home: LogIn(),
+          // OnboardingScreen(),
           onGenerateRoute: Routes.sailor.generator(),
           navigatorKey: Routes.sailor.navigatorKey);
     });

@@ -1,4 +1,5 @@
-import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:jiffy/jiffy.dart';
 
 String emailValidator(String value) {
   final val = value.trim();
@@ -27,12 +28,61 @@ String passwordValidator(String value) {
   return null;
 }
 
-String phoneNumberValidator(String value) {
-  final val = value.trim();
-  if (val.isEmpty) {
-    return 'Phone number is required';
-  } else if (val.length < 11) {
-    return 'Incorrect Phone Number';
+String initialName(String userName) {
+  String name = userName;
+  List<String> data = name.split("");
+  List<String> newData = List<String>();
+
+  for (int i = 0; i < data.length; i++) {
+    if (data[i].toUpperCase() == data[i]) {
+      newData.remove(" ");
+      newData.add(data[i]);
+    }
   }
-  return null;
+
+  return "${newData[0]}${newData[1]}";
+}
+
+String formatTime(DateTime now) {
+  return DateFormat('hh:mm a').format(now);
+}
+
+formatAgo(DateTime now) {
+  return toBeginningOfSentenceCase(Jiffy(now).fromNow.call());
+}
+
+String values(String data, var item) {
+  switch (data) {
+    case "List<dynamic>":
+      return item[0].toString();
+      break;
+    case "int":
+      return item.toString();
+      break;
+    case "Null":
+      return "";
+      break;
+    default:
+      return item.toString();
+  }
+}
+
+String removeSquareBracket(String value) {
+  String data = value;
+  if (value.contains('[') && value.contains(']')) {
+    List<String> valueList = data.split('');
+    valueList.removeAt(0);
+    valueList.removeAt(valueList.length - 1);
+    return valueList.join();
+  } else {
+    return value;
+  }
+}
+
+String removeHashForColor(String value) {
+  String data = value ?? "#cfcdca";
+
+  List<String> valueList = data.split('');
+  valueList.removeAt(0);
+  return valueList.join().toUpperCase();
 }

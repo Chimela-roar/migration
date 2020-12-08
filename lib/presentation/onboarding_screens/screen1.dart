@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:migration/utility/size_config.dart';
 
-class screen1 extends StatelessWidget {
-  const screen1({
+class Screen1 extends StatelessWidget {
+  const Screen1({
     Key key,
   }) : super(key: key);
 
