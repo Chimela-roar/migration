@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:migration/utility/functions.dart';
 import 'package:migration/utility/routes.dart';
 import 'package:migration/utility/size_config.dart';
+import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:sailor/sailor.dart';
 import 'package:firebase_database/firebase_database.dart';
 
@@ -35,108 +36,112 @@ class _LogInState extends State<LogIn> {
     return Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: Colors.white,
-        body: Form(
-          key: _formKey,
-          child: Container(
-            padding: EdgeInsets.all(50),
-            child: Column(
-              children: <Widget>[
-                Hero(tag: 'logo', child: Image.asset("images/migration.png")),
-                SizedBox(height: SizeConfig.heightMultiplier * 4),
-                InputField(
-                  control: emailInputController,
-                  validate: (value) {
-                    if (value.isEmpty) {
-                      return 'Enter Email';
-                    }
-                    return null;
-                  },
-                  onchanged: (value) {
-                    email = value;
-                  },
-                  hinttitle: 'Email',
-                ),
-                SizedBox(height: SizeConfig.heightMultiplier * 5),
-                InputField(
-                  control: pwdInputController,
-                  validate: (value) {
-                    if (value.isEmpty) {
-                      return 'Enter Password';
-                    }
-                    return null;
-                  },
-                  onchanged: (value) {
-                    password = value;
-                  },
-                  hinttitle: 'Password',
-                  hidepassword: true,
-                ),
-                SizedBox(
-                  height: SizeConfig.heightMultiplier * 5,
-                ),
-                ButtonBar(
-                  children: [
-                    Text(
-                      'Forgot password?',
-                      style: TextStyle(color: Colors.purple),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: SizeConfig.heightMultiplier * 5,
-                ),
-                FlatButton(
-                  onPressed: () async {
-                    setState(() {
-                      showSpinner = true;
-                    });
-                    try {
-                      final user = await _auth.signInWithEmailAndPassword(
-                          email: email, password: password);
-                      if (_formKey.currentState.validate()) {
-                        return Routes.sailor.navigate('/Home',
-                            navigationType: NavigationType.pushReplace,
-                            removeUntilPredicate: (route) => false,
-                            transitions: [SailorTransition.slide_from_right]);
-                      }
-                    } catch (e) {
-                      print(e);
-                    }
-                  },
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(50),
+        body: ModalProgressHUD(
+          progressIndicator: CircularProgressIndicator(
+            backgroundColor: Colors.purple,
+          ),
+          inAsyncCall: showSpinner,
+          child: Form(
+            key: _formKey,
+            child: Container(
+              padding: EdgeInsets.all(50),
+              child: Column(
+                children: <Widget>[
+                  Hero(tag: 'logo', child: Image.asset("images/migration.png")),
+                  SizedBox(height: SizeConfig.heightMultiplier * 4),
+                  InputField(
+                    control: emailInputController,
+                    validate: emailValidator,
+                    onchanged: (value) {
+                      email = value;
+                    },
+                    hinttitle: 'Email',
                   ),
-                  color: Colors.purple,
-                  child: Text(
-                    'Log In',
-                    style: TextStyle(
-                        fontSize: SizeConfig.textSizeMultiplier * 5,
-                        color: Colors.white),
-                    textAlign: TextAlign.center,
+                  SizedBox(height: SizeConfig.heightMultiplier * 5),
+                  InputField(
+                    control: pwdInputController,
+                    validate: passwordValidator,
+                    onchanged: (value) {
+                      password = value;
+                    },
+                    hinttitle: 'Password',
+                    hidepassword: true,
                   ),
-                ),
-                SizedBox(height: SizeConfig.heightMultiplier * 2),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Don\'t have an acoount?',
-                    ),
-                    InkWell(
-                      onTap: () {
-                        Routes.sailor.navigate('/Sign_up',
-                            navigationType: NavigationType.pushReplace,
-                            removeUntilPredicate: (route) => false,
-                            transitions: [SailorTransition.slide_from_right]);
-                      },
-                      child: Text(
-                        'Sign up',
+                  SizedBox(
+                    height: SizeConfig.heightMultiplier * 5,
+                  ),
+                  ButtonBar(
+                    children: [
+                      Text(
+                        'Forgot password?',
                         style: TextStyle(color: Colors.purple),
                       ),
-                    )
-                  ],
-                )
-              ],
+                    ],
+                  ),
+                  SizedBox(
+                    height: SizeConfig.heightMultiplier * 5,
+                  ),
+                  FlatButton(
+                    onPressed: () async {
+                      setState(() {
+                        showSpinner = true;
+                      });
+                      try {
+                        if (_formKey.currentState.validate()) {
+                          final user = await _auth.signInWithEmailAndPassword(
+                              email: email, password: password);
+
+                          if (user != null) {
+                            return Routes.sailor.navigate('/Home',
+                                navigationType: NavigationType.pushReplace,
+                                removeUntilPredicate: (route) => false,
+                                transitions: [
+                                  SailorTransition.slide_from_right
+                                ]);
+                          }
+                        }
+                        setState(() {
+                          showSpinner = false;
+                        });
+                      } catch (e) {
+                        print(e);
+                      }
+                    },
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(50),
+                    ),
+                    color: Colors.purple,
+                    child: Text(
+                      'Log In',
+                      style: TextStyle(
+                          fontSize: SizeConfig.textSizeMultiplier * 5,
+                          color: Colors.white),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  SizedBox(height: SizeConfig.heightMultiplier * 2),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Don\'t have an acoount?',
+                      ),
+                      InkWell(
+                        onTap: () {
+                          Routes.sailor.navigate('/Sign_up',
+                              navigationType: NavigationType.pushReplace,
+                              removeUntilPredicate: (route) => false,
+                              transitions: [SailorTransition.slide_from_right]);
+                        },
+                        child: Text(
+                          'Sign up',
+                          style: TextStyle(color: Colors.purple),
+                        ),
+                      )
+                    ],
+                  )
+                ],
+              ),
             ),
           ),
         ));

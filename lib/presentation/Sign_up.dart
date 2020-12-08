@@ -5,6 +5,7 @@ import 'package:migration/utility/routes.dart';
 import 'package:migration/utility/size_config.dart';
 import 'package:sailor/sailor.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:firebase_database/firebase_database.dart';
 
 class Signup extends StatefulWidget {
   @override
@@ -16,14 +17,26 @@ class _SignupState extends State<Signup> {
   final _auth = FirebaseAuth.instance;
   String email;
   String password;
+  final _formKey = GlobalKey<FormState>();
+  DatabaseReference dbRef =
+      FirebaseDatabase.instance.reference().child("Users");
+  TextEditingController emailInputController;
+  TextEditingController pwdInputController;
+
+  @override
+  initState() {
+    emailInputController = new TextEditingController();
+    pwdInputController = new TextEditingController();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: Colors.white,
-        body: ModalProgressHUD(
-          color: Colors.purple,
-          inAsyncCall: showSpinner,
+        body: Form(
+          key: _formKey,
           child: Container(
             padding: EdgeInsets.all(50),
             child: Column(
@@ -31,6 +44,7 @@ class _SignupState extends State<Signup> {
                 Hero(tag: 'logo', child: Image.asset("images/migration.png")),
                 SizedBox(height: SizeConfig.heightMultiplier * 4),
                 InputField(
+                  control: emailInputController,
                   validate: emailValidator,
                   hinttitle: 'Email',
                   onchanged: (value) {
@@ -45,6 +59,7 @@ class _SignupState extends State<Signup> {
                   height: SizeConfig.heightMultiplier * 5,
                 ),
                 InputField(
+                  control: pwdInputController,
                   validate: passwordValidator,
                   hinttitle: 'Password',
                   hidepassword: true,
@@ -61,14 +76,17 @@ class _SignupState extends State<Signup> {
                       showSpinner = true;
                     });
                     try {
-                      final newUser =
-                          await _auth.createUserWithEmailAndPassword(
-                              email: email, password: password);
-                      if (newUser != null) {
-                        Routes.sailor.navigate('/Home',
-                            navigationType: NavigationType.pushReplace,
-                            removeUntilPredicate: (route) => false,
-                            transitions: [SailorTransition.slide_from_right]);
+                      if (_formKey.currentState.validate()) {
+                        final newUser =
+                            await _auth.createUserWithEmailAndPassword(
+                                email: email, password: password);
+
+                        if (newUser != null) {
+                          return Routes.sailor.navigate('/Home',
+                              navigationType: NavigationType.pushReplace,
+                              removeUntilPredicate: (route) => false,
+                              transitions: [SailorTransition.slide_from_right]);
+                        }
                       }
                       setState(() {
                         showSpinner = false;
@@ -122,18 +140,21 @@ class InputField extends StatelessWidget {
   final bool hidepassword;
   final Function onchanged;
   final Function validate;
+  final TextEditingController control;
 
   const InputField(
       {Key key,
       this.hinttitle,
       this.hidepassword = false,
       this.onchanged,
-      this.validate})
+      this.validate,
+      this.control})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: control,
       obscureText: hidepassword,
       onChanged: onchanged,
       validator: validate,

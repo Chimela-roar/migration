@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:migration/presentation/Log_in.dart';
+import 'package:migration/presentation/Sign_up.dart';
 import 'package:migration/presentation/onboarding.dart';
 import 'package:migration/utility/routes.dart';
 import 'package:migration/utility/size_config.dart';
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
             primarySwatch: Colors.blue,
             visualDensity: VisualDensity.adaptivePlatformDensity,
           ),
-          home: LogIn(),
+          home: Signup(),
           // OnboardingScreen(),
           onGenerateRoute: Routes.sailor.generator(),
           navigatorKey: Routes.sailor.navigatorKey);

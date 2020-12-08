@@ -20,10 +20,14 @@ String emptyStringValidator(String value) {
 
 String passwordValidator(String value) {
   final val = value.trim();
+  Pattern pattern = r'^(?=.*?[0-9])';
+  RegExp regex = new RegExp(pattern);
   if (val.isEmpty) {
     return 'Password is required';
-  } else if (val.length < 8) {
+  } else if (val.length < 5) {
     return 'Incorrect password';
+  } else if (!regex.hasMatch(val)) {
+    return 'Invalid password';
   }
   return null;
 }
