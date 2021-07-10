@@ -75,7 +75,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   Container(
                     alignment: Alignment.centerRight,
                     child: FlatButton(
-                      splashColor: Colors.transparent,
+                      // splashColor: Colors.transparent,
                       onPressed: () {
                         Routes.sailor.navigate('/Sign_up',
                             navigationType: NavigationType.pushReplace,
@@ -89,7 +89,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     ),
                   ),
                   Container(
-                    height: 600.0,
+                    height: 500.0,
                     child: PageView(
                       physics: ClampingScrollPhysics(),
                       controller: _pageController,
@@ -112,7 +112,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       ? Expanded(
                           child: Align(
                             alignment: FractionalOffset.bottomRight,
-                            child: FlatButton(
+                            child: TextButton(
                                 onPressed: () {
                                   _pageController.nextPage(
                                       duration: Duration(milliseconds: 500),

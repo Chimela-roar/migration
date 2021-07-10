@@ -14,10 +14,13 @@ class Screen1 extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Center(
-            child: Image.asset('images/Fast.png'),
+            child: Image.asset(
+              'images/Fast.png',
+              scale: 5,
+            ),
           ),
           SizedBox(
-            height: SizeConfig.heightMultiplier,
+            height: SizeConfig.heightMultiplier * 4,
           ),
           Center(
             child: Text(

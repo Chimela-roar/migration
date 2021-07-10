@@ -36,7 +36,7 @@ dependencies:
   cloud_firestore: ^0.14.3
   modal_progress_hud: ^0.1.3
   shared_preferences: ^0.5.12+4
-  # backdrop: ^0.4.7
+  backdrop: ^0.4.7
   jiffy: ^3.0.1
   firebase_database: ^4.3.0
 

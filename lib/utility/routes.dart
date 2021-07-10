@@ -1,4 +1,5 @@
-import 'package:migration/presentation/Home.dart';
+import 'package:migration/presentation/Home/Home.dart';
+import 'package:migration/presentation/Home/main_home.dart';
 import 'package:migration/presentation/Log_in.dart';
 import 'package:migration/presentation/Sign_up.dart';
 import 'package:migration/presentation/onboarding.dart';
@@ -26,6 +27,11 @@ class Routes {
           }),
       SailorRoute(
           name: '/Home',
+          builder: (context, args, params) {
+            return MainHome();
+          }),
+      SailorRoute(
+          name: '/TabHome',
           builder: (context, args, params) {
             return HomeScreen();
           }),

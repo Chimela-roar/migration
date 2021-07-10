@@ -4,7 +4,6 @@ import 'package:migration/utility/functions.dart';
 import 'package:migration/utility/routes.dart';
 import 'package:migration/utility/size_config.dart';
 import 'package:sailor/sailor.dart';
-import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:firebase_database/firebase_database.dart';
 
 class Signup extends StatefulWidget {

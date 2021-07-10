@@ -92,7 +92,7 @@ class _LogInState extends State<LogIn> {
                               email: email, password: password);
 
                           if (user != null) {
-                            return Routes.sailor.navigate('/Home',
+                            return Routes.sailor.navigate('/TabHome',
                                 navigationType: NavigationType.pushReplace,
                                 removeUntilPredicate: (route) => false,
                                 transitions: [
