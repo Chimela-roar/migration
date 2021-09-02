@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
       SizeConfig()..init(constraints);
       return MaterialApp(
           debugShowCheckedModeBanner: false,
-          title: 'Quabbly',
+          title: 'Migration',
           theme: ThemeData(
             textTheme: GoogleFonts.actorTextTheme(Theme.of(context).textTheme),
             primarySwatch: Colors.blue,
